@@ -1,0 +1,56 @@
+
+main:
+    SET R7, 0xFF
+	SET R0, p
+	SET R1, 0x10
+	SET R4, 0x00
+    CALL |R7|, cantimpares
+
+
+halt:
+    JMP halt
+
+cantimpares:
+    PUSH |R7|, R3
+    PUSH |R7|, R5
+    PUSH |R7|, R6
+    PUSH |R7|, R2
+    SET R3, 0x01
+    SET R5, 0X01
+    SET R2, 0X00
+    
+    CICLO:
+    LOAD R6, [R0]
+    ADD R0, R5
+    ADD R2, R5
+    MOV R3, R5
+    AND R3, R6
+    ADD R4, R3
+    CMP R2, R1
+
+    JN CICLO
+    POP |R7|, R2
+    POP |R7|, R3
+    POP |R7|, R5
+    POP |R7|, R6
+
+    RET |R7|
+
+p:
+DB 0x01
+DB 0x02
+DB 0x04
+DB 0x08
+DB 0x03
+DB 0x03
+DB 0xA1
+DB 0xC0
+DB 0xFF
+DB 0x40
+DB 0x55
+DB 0xCC
+DB 0xBD
+DB 0x45
+DB 0x9A
+DB 0xEE
+
